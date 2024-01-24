@@ -14,10 +14,10 @@ class PricingRule
 
   def call(product:, quantity:)
     validate_product_code!(product.code)
-    calculate(product, quantity)
+    calculate_discount(product, quantity)
   end
 
-  def calculate(product, quantity)
+  def calculate_discount(product, quantity)
     raise NotImplementedError
   end
 
