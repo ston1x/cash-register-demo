@@ -4,7 +4,7 @@
 class Product
   def initialize(name:, price:, code:)
     @name = name
-    @price = price
+    @price = price.to_d
     @code = code
   end
 
