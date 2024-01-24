@@ -2,5 +2,6 @@
 
 source 'https://rubygems.org'
 
+gem 'pry' # for debugging
 gem 'rspec'
 gem 'rubocop'
