@@ -1,22 +1,24 @@
 # frozen_string_literal: true
 
 require_relative '../spec_helper'
-RSpec.describe CashRegister do
-  describe '#calculate_total' do
+RSpec.describe Checkout do
+  describe '#call' do
     let(:green_tea) { Product.new(name: 'Green tea', price: 3.11, code: 'GR1') }
     let(:strawberries) { Product.new(name: 'Strawberries', price: 5.00, code: 'SR1') }
     let(:coffee) { Product.new(name: 'Coffee', price: 11.23, code: 'CF1') }
     let(:products) { [green_tea, strawberries, coffee] }
 
     let(:stock) { Stock.new(products:, pricing_rules:) }
-    let(:cash_register) { CashRegister.new(stock:) }
+    let(:checkout) { Checkout.new(stock:, cart:) }
 
     context 'when no pricing rules are applied' do
       let(:pricing_rules) { [] }
-      let(:cart) { { 'GR1' => 3, 'SR1' => 1, 'CF1' => 1 } }
+      let(:cart) { %w[GR1 GR1 GR1 SR1 CF1] }
 
-      it 'calculates the total price' do
-        expect(cash_register.calculate_total(cart)).to eq(25.56)
+      it 'calculates the total price and applies no discounts' do
+        checkout.call
+        expect(checkout.total).to eq(25.56)
+        expect(checkout.total_with_discount).to eq(25.56)
       end
     end
 
@@ -37,10 +39,12 @@ RSpec.describe CashRegister do
           )
         ]
       end
-      let(:cart) { { 'GR1' => 3, 'SR1' => 1, 'CF1' => 1 } }
+      let(:cart) { %w[GR1 GR1 GR1 SR1 CF1] }
 
-      it 'calculates the total price' do
-        expect(cash_register.calculate_total(cart)).to eq(22.45)
+      it 'calculates the total price with discounts' do
+        checkout.call
+        expect(checkout.total).to eq(25.56)
+        expect(checkout.total_with_discount).to eq(22.45)
       end
     end
   end
