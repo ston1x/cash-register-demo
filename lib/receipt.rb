@@ -3,10 +3,6 @@
 # Purpose: Print receipt for the checkout. Can be extended with various formats
 # of output.
 class Receipt
-  # I decided not to implement it because the structure that would work for
-  # the Receipt class is too specific and at the same time plain Hash.
-  # Could be a struct maybe?
-
   def initialize(line_items:, total:, total_with_discount:)
     @line_items = line_items
     @total = total

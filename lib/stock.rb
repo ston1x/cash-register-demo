@@ -19,7 +19,7 @@ class Stock
 
   def find_product(code:)
     result = products.find { |product| product.code == code }
-    # TODO: Think about returning nil instead, just like in a store where
+    # NOTE: Optionally we can return nil instead, just like in a store where
     # if the scanner does not identify the product, you just skip it.
     # Or accept a MODE or STRICT parameter/env variable that would control this behavior.
     raise ProductNotRegisteredError, "Product with code #{code} is not registered" unless result
