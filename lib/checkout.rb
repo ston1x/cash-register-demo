@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
 require 'bigdecimal/util'
 require_relative 'stock'
 require_relative 'product'
@@ -22,6 +21,8 @@ class Checkout
 
   attr_reader :stock, :cart, :line_items, :total, :total_with_discount
 
+  # TODO: IDEA: apparently instead of this I should implement a "#scan" method to consecutively scan every item
+  # and then call the checkout method. This would allow scanning items one by one more realistically.
   def call
     @line_items = scan_cart
     @total = line_items.sum(&:total_price)

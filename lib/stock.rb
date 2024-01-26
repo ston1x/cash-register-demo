@@ -17,6 +17,10 @@ class Stock
 
   attr_reader :products, :pricing_rules
 
+  def find_pricing_rule(code:)
+    pricing_rules.find { |pricing_rule| pricing_rule.code == code }
+  end
+
   def find_product(code:)
     result = products.find { |product| product.code == code }
     # NOTE: Optionally we can return nil instead, just like in a store where
@@ -27,12 +31,14 @@ class Stock
     result
   end
 
-  def add_product(product)
-    products << product
-    raise "Product with code #{product.code} is already registered" unless find_product(code: product.code)
-  end
+  %w[product pricing_rule].each do |entity|
+    define_method("add_#{entity}") do |e|
+      send("#{entity}s") << e
+      raise "#{entity.capitalize} with code #{e.code} is already registered" unless send("find_#{entity}", code: e.code)
+    end
 
-  def remove_product(code:)
-    products.delete(find_product(code:))
+    define_method("remove_#{entity}") do |code:|
+      send("#{entity}s").delete(send("find_#{entity}", code:))
+    end
   end
 end

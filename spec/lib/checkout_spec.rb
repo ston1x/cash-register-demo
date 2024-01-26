@@ -26,14 +26,17 @@ RSpec.describe Checkout do
       let(:pricing_rules) do
         [
           PricingRules::BuyGetFree.new(
+            code: 'buy_one_get_one_free',
             product_codes: [green_tea.code],
             options: { buy: 1, free: 1 }
           ),
           PricingRules::PriceDiscount.new(
+            code: 'veggie_day',
             product_codes: [strawberries.code],
             options: { min_quantity: 3, new_price: 4.50 }
           ),
           PricingRules::FractionDiscount.new(
+            code: 'share_the_coffee',
             product_codes: [coffee.code],
             options: { min_quantity: 3, discount: 0.5 }
           )

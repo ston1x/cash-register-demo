@@ -11,9 +11,21 @@ RSpec.describe Stock do
   end
   let(:pricing_rules) do
     [
-      PricingRules::BuyGetFree.new(product_codes: ['GR1'], options: { buy: 1, get: 1 }),
-      PricingRules::PriceDiscount.new(product_codes: ['SR1'], options: { min_quantity: 3, new_price: 4.50 }),
-      PricingRules::FractionDiscount.new(product_codes: ['CF1'], options: { min_quantity: 3, discount: 2.0 / 3.0 })
+      PricingRules::BuyGetFree.new(
+        code: 'buy_one_get_one_free',
+        product_codes: ['GR1'],
+        options: { buy: 1, get: 1 }
+      ),
+      PricingRules::PriceDiscount.new(
+        code: 'stay_fresh',
+        product_codes: ['SR1'],
+        options: { min_quantity: 3, new_price: 4.50 }
+      ),
+      PricingRules::FractionDiscount.new(
+        code: 'coffee_time',
+        product_codes: ['CF1'],
+        options: { min_quantity: 3, discount: 2.0 / 3.0 }
+      )
     ]
   end
 
@@ -49,12 +61,43 @@ RSpec.describe Stock do
     end
   end
 
+  describe '#add_pricing_rule' do
+    let(:stock) { Stock.new(products:, pricing_rules:) }
+    let(:pricing_rule) do
+      PricingRules::BuyGetFree.new(
+        code: 'buy_one_get_one_free',
+        product_codes: ['GR1'],
+        options: { buy: 1, get: 1 }
+      )
+    end
+
+    it 'adds the pricing rule to the stock' do
+      expect { stock.add_pricing_rule(pricing_rule) }.to change { stock.pricing_rules.size }.by(1)
+    end
+  end
+
   describe '#add_product' do
     let(:stock) { Stock.new(products:, pricing_rules:) }
     let(:product) { Product.new(name: 'Milk', price: 1.00, code: 'MK1') }
 
     it 'adds the product to the stock' do
       expect { stock.add_product(product) }.to change { stock.products.size }.by(1)
+    end
+  end
+
+  describe '#remove_pricing_rule' do
+    let(:stock) { Stock.new(products:, pricing_rules:) }
+    let(:pricing_rule) do
+      PricingRules::BuyGetFree.new(
+        code: 'buy_one_get_one_free',
+        product_codes: ['GR1'],
+        options: { buy: 1, get: 1 }
+      )
+    end
+
+    it 'removes the pricing rule from the stock' do
+      stock.add_pricing_rule(pricing_rule)
+      expect { stock.remove_pricing_rule(code: pricing_rule.code) }.to change { stock.pricing_rules.size }.by(-1)
     end
   end
 

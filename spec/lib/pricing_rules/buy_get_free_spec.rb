@@ -3,7 +3,13 @@
 require_relative '../../spec_helper'
 RSpec.describe 'PricingRules::BuyGetFree' do
   describe '#calculate_discount' do
-    let(:pricing_rule) { PricingRules::BuyGetFree.new(product_codes: [product.code], options:) }
+    let(:pricing_rule) do
+      PricingRules::BuyGetFree.new(
+        code: 'buy_one_get_one_free',
+        product_codes: [product.code],
+        options:
+      )
+    end
     let(:product) { Product.new(name: 'Green tea', price: 5, code: 'GR1') }
 
     describe 'buy one get one free' do
@@ -26,7 +32,13 @@ RSpec.describe 'PricingRules::BuyGetFree' do
     end
 
     describe 'buy two get one free' do
-      let(:pricing_rule) { PricingRules::BuyGetFree.new(product_codes: [product.code], options: { buy: 2, free: 1 }) }
+      let(:pricing_rule) do
+        PricingRules::BuyGetFree.new(
+          code: 'buy_two_get_one_free',
+          product_codes: [product.code],
+          options: { buy: 2, free: 1 }
+        )
+      end
 
       context 'when the quantity is less than the minimum required' do
         it { expect(pricing_rule.calculate_discount(product, 1)).to eq(0) }

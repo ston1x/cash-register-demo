@@ -5,12 +5,13 @@
 class PricingRule
   class UnsupportedProductError < StandardError; end
 
-  def initialize(product_codes:, options:)
+  def initialize(code:, product_codes:, options:)
+    @code = code
     @product_codes = product_codes
     @options = options
   end
 
-  attr_reader :product_codes, :options
+  attr_reader :code, :product_codes, :options
 
   def call(product:, quantity:)
     validate_product_code!(product.code)

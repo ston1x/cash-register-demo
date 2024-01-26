@@ -3,7 +3,13 @@
 require_relative '../../spec_helper'
 RSpec.describe 'PricingRules::BuyGetFree' do
   describe '#calculate_discount' do
-    let(:pricing_rule) { PricingRules::PriceDiscount.new(product_codes: [product.code], options:) }
+    let(:pricing_rule) do
+      PricingRules::PriceDiscount.new(
+        code: 'tea_time',
+        product_codes: [product.code],
+        options:
+      )
+    end
     let(:product) { Product.new(name: 'Green tea', price: 5, code: 'GR1') }
     let(:options) { { min_quantity: 2, new_price: 2.00 } }
 
