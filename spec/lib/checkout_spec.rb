@@ -80,20 +80,44 @@ RSpec.describe Checkout do
           PricingRules::FractionDiscount.new(
             code: 'share_the_coffee',
             product_codes: [coffee.code],
-            options: { min_quantity: 3, discount: 0.5 }
+            options: { min_quantity: 3, discount: 2.0 / 3.0 }
           )
         ]
       end
 
-      it 'calculates the total price with discounts' do
-        checkout.scan_item('GR1')
-        checkout.scan_item('GR1')
-        checkout.scan_item('SR1')
-        checkout.scan_item('GR1')
-        checkout.scan_item('CF1')
-        checkout.call
-        expect(checkout.total).to eq(25.56)
-        expect(checkout.total_with_discount).to eq(22.45)
+      context 'when buying 2 green teas' do
+        it 'calculates the total price with discounts' do
+          checkout.scan_item('GR1')
+          checkout.scan_item('GR1')
+          checkout.call
+          expect(checkout.total).to eq(6.22)
+          expect(checkout.total_with_discount).to eq(3.11)
+        end
+      end
+
+      context 'when buying strawberries and green tea in random order' do
+        it 'calculates the total price with discounts' do
+          checkout.scan_item('SR1')
+          checkout.scan_item('SR1')
+          checkout.scan_item('GR1')
+          checkout.scan_item('SR1')
+          checkout.call
+          expect(checkout.total).to eq(18.11)
+          expect(checkout.total_with_discount).to eq(16.61)
+        end
+      end
+
+      context 'when buying green tea, strawberries and three coffees' do
+        it 'calculates the total price with discounts' do
+          checkout.scan_item('GR1')
+          checkout.scan_item('CF1')
+          checkout.scan_item('SR1')
+          checkout.scan_item('CF1')
+          checkout.scan_item('CF1')
+          checkout.call
+          expect(checkout.total).to eq(41.8)
+          expect(checkout.total_with_discount).to eq(30.57)
+        end
       end
     end
   end

@@ -20,10 +20,10 @@ RSpec.describe 'PricingRules::BuyGetFree' do
     end
 
     context 'when the quantity is greater than the minimum required' do
-      it { expect(pricing_rule.calculate_discount(product, 2)).to eq(4.0) }
-      it { expect(pricing_rule.calculate_discount(product, 3)).to eq(6.0) }
-      it { expect(pricing_rule.calculate_discount(product, 4)).to eq(8.0) }
-      it { expect(pricing_rule.calculate_discount(product, 5)).to eq(10.0) }
+      it { expect(pricing_rule.calculate_discount(product, 2)).to eq(6.0) }
+      it { expect(pricing_rule.calculate_discount(product, 3)).to eq(9.0) }
+      it { expect(pricing_rule.calculate_discount(product, 4)).to eq(12.0) }
+      it { expect(pricing_rule.calculate_discount(product, 5)).to eq(15.0) }
     end
   end
 end

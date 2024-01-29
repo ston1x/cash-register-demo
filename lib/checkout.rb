@@ -22,19 +22,20 @@ class Checkout
 
   attr_reader :stock, :cart, :line_items, :total, :total_with_discount
 
-  def call
-    @line_items = scan_cart
-    @total_with_discount = line_items.sum(&:price_with_discount)
-    # accept_payment(@total_with_discount) (placeholder - out of scope)
-    print_receipt(@line_items, @total, @total_with_discount)
-
-    @total_with_discount
-  end
-
+  # First you need to scan items one by one
   def scan_item(product_code)
     cart << product_code
     product = stock.find_product(code: product_code)
     @total += product.price
+  end
+
+  def call
+    @line_items = scan_cart
+    @total_with_discount = calculate_total_with_discount(@line_items)
+    # accept_payment(@total_with_discount) (placeholder - out of scope)
+    print_receipt(@line_items, @total, @total_with_discount)
+
+    @total_with_discount
   end
 
   private
@@ -47,6 +48,10 @@ class Checkout
 
       LineItem.new(product:, quantity:, total_price:, price_with_discount:)
     end
+  end
+
+  def calculate_total_with_discount(line_items)
+    line_items.sum(&:price_with_discount).round(2)
   end
 
   def print_receipt(line_items, total, total_with_discount)
