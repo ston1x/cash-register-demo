@@ -4,15 +4,12 @@ module PricingRules
   # Parent class for pricing rules. It specifies how they are instantiated and
   # provides a way to figure out if a pricing rule applies for a given product.
   class Base
+    extend Dry::Initializer
+
     class UnsupportedProductError < StandardError; end
 
-    def initialize(code:, product_codes:, options:)
-      @code = code
-      @product_codes = product_codes
-      @options = options
-    end
-
-    attr_accessor :code, :product_codes, :options
+    option :code, proc(&:to_s)
+    option :product_codes, default: proc { [] }
 
     def call(product:, quantity:)
       validate_product_code!(product.code)

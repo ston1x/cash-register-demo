@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'dry-initializer'
 require 'bigdecimal/util'
 require_relative 'stock'
 require_relative 'product'

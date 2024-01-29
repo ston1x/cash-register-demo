@@ -7,13 +7,15 @@ RSpec.describe PricingRules::BuyGetFree do
       PricingRules::BuyGetFree.new(
         code: 'buy_one_get_one_free',
         product_codes: [product.code],
-        options:
+        buy:,
+        free:
       )
     end
     let(:product) { Product.new(name: 'Green tea', price: 5, code: 'GR1') }
 
     describe 'buy one get one free' do
-      let(:options) { { buy: 1, free: 1 } }
+      let(:buy) { 1 }
+      let(:free) { 1 }
 
       context 'when the quantity is less than the minimum required' do
         it 'returns 0' do
@@ -36,7 +38,8 @@ RSpec.describe PricingRules::BuyGetFree do
         PricingRules::BuyGetFree.new(
           code: 'buy_two_get_one_free',
           product_codes: [product.code],
-          options: { buy: 2, free: 1 }
+          buy: 2,
+          free: 1
         )
       end
 

@@ -3,13 +3,10 @@
 # Purpose: Print receipt for the checkout. Can be extended with various formats
 # of output.
 class Receipt
-  def initialize(line_items:, total:, total_with_discount:)
-    @line_items = line_items
-    @total = total
-    @total_with_discount = total_with_discount
-  end
-
-  attr_reader :line_items, :total, :total_with_discount
+  extend Dry::Initializer
+  option :line_items
+  option :total
+  option :total_with_discount
 
   def print
     line_items.each do |line_item|

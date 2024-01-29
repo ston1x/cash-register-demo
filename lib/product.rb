@@ -2,11 +2,10 @@
 
 # Implements basic "model" for products
 class Product
-  def initialize(name:, price:, code:)
-    @name = name
-    @price = price.to_d
-    @code = code
-  end
+  extend Dry::Initializer
+  option :name
+  option :price
+  option :code
 
-  attr_reader :name, :price, :code
+  attr_accessor :name, :price, :code
 end

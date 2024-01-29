@@ -9,17 +9,15 @@ products = [
 ]
 
 pricing_rules = [
-  PricingRules::BuyGetFree.new(code: 'buy_one_get_one_free', product_codes: ['GR1'], options: { buy: 1, free: 1 }),
-  PricingRules::PriceDiscount.new(code: 'stay_fresh', product_codes: ['SR1'],
-                                  options: { min_quantity: 3, new_price: 4.50 }),
-  PricingRules::FractionDiscount.new(code: 'coffee_time', product_codes: ['CF1'],
-                                     options: { min_quantity: 3, discount: 2.0 / 3.0 })
+  PricingRules::BuyGetFree.new(code: 'buy_one_get_one_free', product_codes: ['GR1'], buy: 1, free: 1),
+  PricingRules::PriceDiscount.new(code: 'stay_fresh', product_codes: ['SR1'], min_quantity: 3, new_price: 4.50),
+  PricingRules::FractionDiscount.new(code: 'coffee_time', product_codes: ['CF1'], min_quantity: 3, discount: 2.0 / 3.0)
 ]
 
 stock = Stock.new(products:, pricing_rules:)
 
 # Updating an existing pricing rule on the go
-stock.find_pricing_rule(code: 'stay_fresh').options[:new_price] = 4.25
+stock.find_pricing_rule(code: 'stay_fresh').new_price = 4.25
 
 checkout = Checkout.new(stock:)
 checkout.scan_item('GR1')

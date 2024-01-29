@@ -7,11 +7,13 @@ RSpec.describe PricingRules::BuyGetFree do
       PricingRules::PriceDiscount.new(
         code: 'tea_time',
         product_codes: [product.code],
-        options:
+        min_quantity:,
+        new_price:
       )
     end
     let(:product) { Product.new(name: 'Green tea', price: 5, code: 'GR1') }
-    let(:options) { { min_quantity: 2, new_price: 2.00 } }
+    let(:min_quantity) { 2 }
+    let(:new_price) { 2.00 }
 
     context 'when the quantity is less than the minimum required' do
       it 'returns 0' do

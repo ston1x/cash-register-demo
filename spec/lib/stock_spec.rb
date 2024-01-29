@@ -14,17 +14,20 @@ RSpec.describe Stock do
       PricingRules::BuyGetFree.new(
         code: 'buy_one_get_one_free',
         product_codes: ['GR1'],
-        options: { buy: 1, get: 1 }
+        buy: 1,
+        free: 1
       ),
       PricingRules::PriceDiscount.new(
         code: 'stay_fresh',
         product_codes: ['SR1'],
-        options: { min_quantity: 3, new_price: 4.50 }
+        min_quantity: 3,
+        new_price: 4.50
       ),
       PricingRules::FractionDiscount.new(
         code: 'coffee_time',
         product_codes: ['CF1'],
-        options: { min_quantity: 3, discount: 2.0 / 3.0 }
+        min_quantity: 3,
+        discount: 2.0 / 3.0
       )
     ]
   end
@@ -67,7 +70,8 @@ RSpec.describe Stock do
       PricingRules::BuyGetFree.new(
         code: 'buy_one_get_one_free',
         product_codes: ['GR1'],
-        options: { buy: 1, get: 1 }
+        buy: 1,
+        free: 1
       )
     end
 
@@ -91,7 +95,8 @@ RSpec.describe Stock do
       PricingRules::BuyGetFree.new(
         code: 'buy_one_get_one_free',
         product_codes: ['GR1'],
-        options: { buy: 1, get: 1 }
+        buy: 1,
+        free: 1
       )
     end
 

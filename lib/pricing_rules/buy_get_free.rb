@@ -4,10 +4,15 @@
 module PricingRules
   # Buy X get Y free
   class BuyGetFree < Base
-    def calculate_discount(product, quantity)
-      return 0 if quantity < options[:buy] + options[:free]
+    option :buy
+    option :free
 
-      discounted_quantity = quantity / (options[:buy] + options[:free])
+    attr_accessor :buy, :free
+
+    def calculate_discount(product, quantity)
+      return 0 if quantity < buy + free
+
+      discounted_quantity = quantity / (buy + free)
       discounted_quantity * product.price
     end
   end

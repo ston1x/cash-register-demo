@@ -4,18 +4,12 @@
 # It represents available products and pricing rules and can search through them.
 class Stock
   class ProductNotRegisteredError < StandardError; end
-  # NOTE: Optionally, we could use dry-initializer here in order
-  # to guarantee that the array of Product instances is passed.
+  extend Dry::Initializer
   # NOTE: We initialize pricing rules **here** because cashiers should have
   # limited access and should not control pricing rules.
   # Setting pricing rules is more of a managements' responsibility.
-
-  def initialize(products:, pricing_rules:)
-    @products = products
-    @pricing_rules = pricing_rules
-  end
-
-  attr_reader :products, :pricing_rules
+  option :products, default: -> { [] }
+  option :pricing_rules, default: -> { [] }
 
   def find_pricing_rule(code:)
     pricing_rules.find { |pricing_rule| pricing_rule.code == code }

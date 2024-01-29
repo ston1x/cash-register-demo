@@ -4,9 +4,8 @@ require_relative '../../spec_helper'
 RSpec.describe PricingRules::Base do
   subject(:pricing_rule) do
     described_class.new(
-      code: 'buy_one_get_one_free',
-      product_codes: [product.code],
-      options: { buy: 1, get: 1 }
+      code: 'some_rule',
+      product_codes: [product.code]
     )
   end
   let(:product) { Product.new(name: 'Green tea', price: 3.11, code: 'GR1') }
@@ -14,7 +13,6 @@ RSpec.describe PricingRules::Base do
   describe '#initialize' do
     it 'initializes a new pricing rule with the provided attributes' do
       expect(pricing_rule.product_codes).to eq(['GR1'])
-      expect(pricing_rule.options).to eq({ buy: 1, get: 1 })
     end
   end
 

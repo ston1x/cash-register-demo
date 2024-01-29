@@ -7,11 +7,13 @@ RSpec.describe PricingRules::FractionDiscount do
       PricingRules::FractionDiscount.new(
         code: 'tea_time',
         product_codes: [product.code],
-        options:
+        min_quantity:,
+        discount:
       )
     end
     let(:product) { Product.new(name: 'Green tea', price: 5, code: 'GR1') }
-    let(:options) { { min_quantity: 2, discount: 1.0 / 2.0 } }
+    let(:min_quantity) { 2 }
+    let(:discount) { 1.0 / 2.0 }
 
     context 'when the quantity is less than the minimum required' do
       it 'returns 0' do
