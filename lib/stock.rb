@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This class implements the Stock of the store.
-# It represents available products and can search through them.
+# It represents available products and pricing rules and can search through them.
 class Stock
   class ProductNotRegisteredError < StandardError; end
   # NOTE: Optionally, we could use dry-initializer here in order

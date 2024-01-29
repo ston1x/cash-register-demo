@@ -20,7 +20,7 @@ class Checkout
     @total = 0
   end
 
-  attr_reader :stock, :cart, :line_items, :total, :total_with_discount
+  attr_reader :stock, :cart, :line_items, :total, :total_with_discount, :receipt
 
   # First you need to scan items one by one
   def scan_item(product_code)
@@ -30,10 +30,9 @@ class Checkout
   end
 
   def call
-    @line_items = scan_cart
-    @total_with_discount = calculate_total_with_discount(@line_items)
-    # accept_payment(@total_with_discount) (placeholder - out of scope)
-    print_receipt(@line_items, @total, @total_with_discount)
+    scan_cart
+    calculate_total_with_discount
+    print_receipt
 
     @total_with_discount
   end
@@ -41,7 +40,7 @@ class Checkout
   private
 
   def scan_cart
-    cart.tally.map do |product_code, quantity|
+    @line_items = cart.tally.map do |product_code, quantity|
       product = stock.find_product(code: product_code)
       total_price = calculate_total(product, quantity)
       price_with_discount = total_price - calculate_discount(product, quantity)
@@ -50,12 +49,13 @@ class Checkout
     end
   end
 
-  def calculate_total_with_discount(line_items)
-    line_items.sum(&:price_with_discount).round(2)
+  def calculate_total_with_discount
+    @total_with_discount = line_items.sum(&:price_with_discount).round(2)
   end
 
-  def print_receipt(line_items, total, total_with_discount)
-    Receipt.new(line_items:, total:, total_with_discount:).print
+  def print_receipt
+    @receipt = Receipt.new(line_items:, total:, total_with_discount:)
+    @receipt.print
   end
 
   def calculate_total(product, quantity)

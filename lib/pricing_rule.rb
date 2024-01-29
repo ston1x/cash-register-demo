@@ -11,7 +11,7 @@ class PricingRule
     @options = options
   end
 
-  attr_reader :code, :product_codes, :options
+  attr_accessor :code, :product_codes, :options
 
   def call(product:, quantity:)
     validate_product_code!(product.code)
