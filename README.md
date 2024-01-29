@@ -2,6 +2,7 @@
 This is a simple Cash Register CLI application that allows setting up a stock of registered products and pricing rules, filling up a cart, scanning its items, applying discounts based on pricing rules, then printing a receipt.
 
 ## Features
+- Set up products and pricing rules in a flexible way
 - Scan products and calculate the total price
 - Apply discounts based on predefined pricing rules
 - Print a receipt with detailed information about the purchased items and discounts
@@ -46,7 +47,7 @@ ruby demo.rb
 ## Things left out of scope
 There are several things left out of scope since they weren't mentioned in the assignment, and for the sake of simplicity:
 
-- Accepting and processing payments.
+- Accepting and processing payments
 - Handling only available amounts of items in stock
 - Generating a receipt in other formats: PDF, CSV, JSON etc.
 
