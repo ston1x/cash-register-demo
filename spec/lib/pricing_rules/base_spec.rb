@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_relative '../spec_helper'
-RSpec.describe 'PricingRule' do
+require_relative '../../spec_helper'
+RSpec.describe PricingRules::Base do
   subject(:pricing_rule) do
-    PricingRule.new(
+    described_class.new(
       code: 'buy_one_get_one_free',
       product_codes: [product.code],
       options: { buy: 1, get: 1 }
@@ -42,7 +42,7 @@ RSpec.describe 'PricingRule' do
 
       it 'raises UnsupportedProductError' do
         expect { pricing_rule.call(product: product2, quantity: 2) }
-          .to raise_error(PricingRule::UnsupportedProductError)
+          .to raise_error(described_class::UnsupportedProductError)
       end
     end
   end

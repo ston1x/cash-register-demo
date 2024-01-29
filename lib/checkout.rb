@@ -3,7 +3,7 @@
 require 'bigdecimal/util'
 require_relative 'stock'
 require_relative 'product'
-require_relative 'pricing_rule'
+require_relative 'pricing_rules/base'
 require_relative 'pricing_rules/buy_get_free'
 require_relative 'pricing_rules/price_discount'
 require_relative 'pricing_rules/fraction_discount'

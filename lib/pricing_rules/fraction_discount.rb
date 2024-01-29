@@ -2,7 +2,7 @@
 
 module PricingRules
   # Buy X or more items and get a fraction discount for each item
-  class FractionDiscount < PricingRule
+  class FractionDiscount < Base
     def calculate_discount(product, quantity)
       return 0 if quantity < options[:min_quantity]
 

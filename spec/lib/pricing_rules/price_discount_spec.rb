@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../../spec_helper'
-RSpec.describe 'PricingRules::BuyGetFree' do
+RSpec.describe PricingRules::BuyGetFree do
   describe '#calculate_discount' do
     let(:pricing_rule) do
       PricingRules::PriceDiscount.new(

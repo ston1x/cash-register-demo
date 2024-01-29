@@ -3,7 +3,7 @@
 # Pricing rule that gives a free item for every X items bought
 module PricingRules
   # Buy X get Y free
-  class BuyGetFree < PricingRule
+  class BuyGetFree < Base
     def calculate_discount(product, quantity)
       return 0 if quantity < options[:buy] + options[:free]
 
