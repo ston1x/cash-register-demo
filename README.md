@@ -14,7 +14,7 @@ The project is organized into the following files:
 - `checkout.rb`: Entry point for the Cash Register application, responsible for processing the cart and generating a receipt
 - `stock.rb`: Represents the available stock of registered products
 - `product.rb`: Defines the Product class with attributes like name, price, and code
-- `pricing_rule.rb`: Base class for pricing rules
+- `pricing_rules/base.rb`: Base class for pricing rules
 - `pricing_rules/`: Directory containing specific pricing rule implementations
 - `receipt.rb`: Generates and prints the receipt based on the scanned items and calculated prices.
 
