@@ -9,28 +9,32 @@ require_relative 'pricing_rules/price_discount'
 require_relative 'pricing_rules/fraction_discount'
 require_relative 'receipt'
 
-# This class is instantiated with a Stock (see stock.rb), and a cart. It represents a process of checking
-# out a customer's cart: calculating the total price, calculating discounts, and printing the receipt.
+# Represents a process of checking out a customer's cart: scanning items, calculating
+# total price, calculating discounts, and printing the receipt.
 class Checkout
   LineItem = Struct.new(:product, :quantity, :total_price, :price_with_discount)
 
-  def initialize(stock:, cart:)
+  def initialize(stock:)
     @stock = stock
-    @cart = cart
+    @cart = []
+    @total = 0
   end
 
   attr_reader :stock, :cart, :line_items, :total, :total_with_discount
 
-  # TODO: IDEA: apparently instead of this I should implement a "#scan" method to consecutively scan every item
-  # and then call the checkout method. This would allow scanning items one by one more realistically.
   def call
     @line_items = scan_cart
-    @total = line_items.sum(&:total_price)
     @total_with_discount = line_items.sum(&:price_with_discount)
-    # accept_payment(total_with_discount) (placeholder - out of scope)
+    # accept_payment(@total_with_discount) (placeholder - out of scope)
     print_receipt(@line_items, @total, @total_with_discount)
 
     @total_with_discount
+  end
+
+  def scan_item(product_code)
+    cart << product_code
+    product = stock.find_product(code: product_code)
+    @total += product.price
   end
 
   private

@@ -8,6 +8,7 @@ This is a simple Cash Register CLI application that allows setting up a stock of
 
 ## Project Structure
 The project is organized into the following files:
+- `task.md`: The initial task
 - `demo.rb`: An example of usage
 - `checkout.rb`: Entry point for the Cash Register application, responsible for processing the cart and generating a receipt
 - `stock.rb`: Represents the available stock of registered products

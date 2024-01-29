@@ -17,12 +17,16 @@ pricing_rules = [
 ]
 
 stock = Stock.new(products:, pricing_rules:)
-cart = %w[GR1 GR1 SR1 CF1]
 
 # Updating an existing pricing rule on the go
 stock.find_pricing_rule(code: 'stay_fresh').options[:new_price] = 4.25
 
-checkout = Checkout.new(stock:, cart:)
+checkout = Checkout.new(stock:)
+checkout.scan_item('GR1')
+checkout.scan_item('SR1')
+checkout.scan_item('GR1')
+checkout.scan_item('CF1')
+
 checkout.call
 
 # Finishing the 'Buy One Get One Free' campaign

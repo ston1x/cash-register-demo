@@ -1,4 +1,4 @@
-# Technical Evaluation Amenitiz Problem to Solve**
+# Technical Evaluation Amenitiz Problem to Solve
 
 You are the developer in charge of building a cash register.
 This app will be able to add products to a cart and compute the total price.
