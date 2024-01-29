@@ -57,5 +57,7 @@ The project uses RSpec for testing. To run the tests:
 bundle exec rspec
 ```
 
+Specific test cases that were mentioned in [task.md](https://github.com/ston1x/cash-register-demo/blob/main/task.md) can be found [here](https://github.com/ston1x/cash-register-demo/blob/main/spec/lib/checkout_spec.rb#L67).
+
 ## Contributing
 Feel free to contribute to this project by submitting issues or pull requests.
