@@ -2,6 +2,7 @@
 This is a simple Cash Register CLI application that allows setting up a stock of registered products and pricing rules, filling up a cart, scanning its items, applying discounts based on pricing rules, then printing a receipt.
 
 ## Features
+- Set up products and pricing rules in a flexible way
 - Scan products and calculate the total price
 - Apply discounts based on predefined pricing rules
 - Print a receipt with detailed information about the purchased items and discounts
@@ -46,7 +47,7 @@ ruby demo.rb
 ## Things left out of scope
 There are several things left out of scope since they weren't mentioned in the assignment, and for the sake of simplicity:
 
-- Accepting and processing payments.
+- Accepting and processing payments
 - Handling only available amounts of items in stock
 - Generating a receipt in other formats: PDF, CSV, JSON etc.
 
@@ -56,6 +57,8 @@ The project uses RSpec for testing. To run the tests:
 ```bash
 bundle exec rspec
 ```
+
+Specific test cases that were mentioned in [task.md](https://github.com/ston1x/cash-register-demo/blob/main/task.md) can be found [here](https://github.com/ston1x/cash-register-demo/blob/main/spec/lib/checkout_spec.rb#L67).
 
 ## Contributing
 Feel free to contribute to this project by submitting issues or pull requests.
